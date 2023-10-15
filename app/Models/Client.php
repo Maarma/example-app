@@ -23,7 +23,7 @@ class Client extends Model
     public function orders(): HasMany
     {
         return $this->hasMany
-        (Order::class);
+        (Orders::class);
     }
 
 };

@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Clients') }}
+            {{ __('Books') }}
         </h2>
     </x-slot>
 
@@ -10,14 +10,10 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <ul>     
-                        @foreach ($clients as $client)
+                        @foreach ($books as $book)
                             <li>
                                 <div class="flex border-b justify-between items-center">
-                                <p class="w-[10%]"><b>First name:</b><br>{{ $client -> first_name }}<p>
-                                <p class="w-[10%]"><b>Last name:</b><br>{{ $client -> last_name }}<p>
-                                <p class="w-[10%]"><b>Username:</b><br>{{ $client -> username }}<p>
-                                <p class="w-[20%]"><b>email:</b><br>{{ $client -> email}}<p>
-                                <p class="w-[20%]"><b>address:</b><br>{{ $client -> address}}<p>
+                                <p>{{ $book -> title }}<p>
                                 <div class="grid grid-cols-2 gap-2 pt-2">
                                     <x-primary-button>edit</x-primary-button>
                                     <x-danger-button>delete</x-danger-button>

@@ -12,7 +12,10 @@ class ClientController extends Controller
      */
     public function index()
     {
-        return view('clients.index');
+        //return view('clients.index');
+        return view('clients.index', [
+            'clients' => Client::paginate(25)
+        ]);
         //return Client::all();
         //return Client::paginate(10); //näitab esimesed 10
     }
