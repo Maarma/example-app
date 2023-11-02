@@ -20,7 +20,13 @@
                                 <p class="w-[20%]"><b>address:</b><br>{{ $client -> address}}<p>
                                 <div class="grid grid-cols-2 gap-2 pt-2">
                                     <x-primary-button>edit</x-primary-button>
-                                    <x-danger-button>delete</x-danger-button>
+                                    <form method="POST" action="{{ route('clients.destroy', $client) }}">
+                                        @csrf
+                                        @method('delete')
+                                        <x-danger-button onclick="event.preventDefault(); this.closest('form').submit();">
+                                            Delete
+                                        </x-danger-button>
+                                    </form>
                                 </div>
                             </div>
                             </li>

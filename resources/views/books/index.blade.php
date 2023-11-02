@@ -13,10 +13,16 @@
                         @foreach ($books as $book)
                             <li>
                                 <div class="flex border-b justify-between items-center">
-                                <p>{{ $book -> title }}<p>
+                                <p><a href="{{ route('books.show', $book)}}">{{ $book -> title }}</a><p>
                                 <div class="grid grid-cols-2 gap-2 pt-2">
-                                    <x-primary-button>edit</x-primary-button>
-                                    <x-danger-button>delete</x-danger-button>
+                                    <a href="{{ route('books.edit', $book)}}">edit</a>
+                                    <form method="POST" action="{{ route('books.destroy', $book) }}">
+                                        @csrf
+                                        @method('delete')
+                                        <x-danger-button onclick="event.preventDefault(); this.closest('form').submit();">
+                                            Delete
+                                        </x-danger-button>
+                                    </form>
                                 </div>
                             </div>
                             </li>
