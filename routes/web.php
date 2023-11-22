@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('clients', ClientController::class);
     Route::resource('orders', OrderController::class);
     Route::resource('books', BookController::class);
+    Route::delete('/detachauthor/{author}', [BookController::class, 'detachAuthot'])->name('book.detach.author');
 });
 
 require __DIR__.'/auth.php';

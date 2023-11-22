@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Author;
 use App\Models\Book;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -43,7 +44,7 @@ class BookController extends Controller
     {
         //$book = Book::with('authors')->where('id', $book->id)->first();
         return view('books.show', [
-            'book' => $book,
+            'book' => $book.filter(filtered),
             'authors' => $book -> authors
         ]);
     }
@@ -69,7 +70,7 @@ class BookController extends Controller
             //'cover_path' => 'required|string|max:255',
             'language' => 'required|string|max:255',
             'summary' => 'required|string|max:255',
-            'price' => 'required|decimal:4',
+            'price' => ['required', 'regex:/^\d+(,\d$|,\d{2})?$/i'],
             //'stock_saldo' => 'required|integer',
             'pages' => 'required|integer:11',
             'type' => 'required|string|max:255',
@@ -89,6 +90,12 @@ class BookController extends Controller
     public function destroy(Book $book)
     {
         $book->delete();
+        return redirect('/books');
+    }
+
+    public function detachAuthor(Author $author)
+    {
+        $author->delete();
         return redirect('/books');
     }
 }

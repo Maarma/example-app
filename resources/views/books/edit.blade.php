@@ -69,17 +69,37 @@
                         />
                         <x-input-error :messages="$errors->get('pages')" class="mt-2" />
                             <x-input-label for="type" value="Type" />
-                        <x-text-input
-                        value="{{ old('type', $book->type) }}"
-                            name="type"
-                            class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                        />
+                            <select value="{{ old('type', $book->type) }}" name="type"
+                             class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
+                                <option value="new" {{ $book -> type == 'new' ? "selected" : "" }}>new</option>
+                                <option value="old" {{ $book -> type == 'old' ? "selected" : "" }}>old</option>
+                                <option value="ebook" {{ $book -> type == 'ebook' ? "selected" : "" }}>ebook</option>
+                            </select>
+                        
                         <x-input-error :messages="$errors->get('type')" class="mt-2" />
                         <div class="mt-4 space-x-2">
                             <x-primary-button>{{ __('Save') }}</x-primary-button>
                             <a href="{{ route('books.index') }}">{{ __('Cancel') }}</a>
                         </div>
+                        
                     </form>
+                    <x-input-label for="authors" value="Authors" class="text-2xl py-4" />
+                    @foreach ($book->authors as $author)
+                            
+                                <div class="flex border-b justify-between items-center">
+                                <p>{{ $author -> first_name }} {{ $author -> last_name }}<p>
+                                <div>
+                                    <form method="POST" action="{{ route('book.detach.author', $author) }}">
+                                        @csrf
+                                        @method('delete')
+                                        <x-danger-button onclick="event.preventDefault(); this.closest('form').submit();">
+                                            Delete
+                                        </x-danger-button>
+                                    </form>
+                                </div>
+                            </div>
+                            
+                        @endforeach
                 </div>
             </div>
         </div>

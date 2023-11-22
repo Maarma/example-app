@@ -11,7 +11,7 @@
                 <div class="p-6 text-gray-900">
                     <b>Title:</b><p>{{ $book-> title}}</p>
                     <p> 
-                        <span><b>Authors:</b></span>
+                        <span><b>Author(s):</b></span>
                         @foreach ($book->authors as $author)
                             <div>    
                                 {{ $author->first_name }} {{ $author->last_name }}
