@@ -33,7 +33,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('clients', ClientController::class);
     Route::resource('orders', OrderController::class);
     Route::resource('books', BookController::class);
-    Route::delete('/detachauthor/{author}', [BookController::class, 'detachAuthot'])->name('book.detach.author');
+    Route::delete('/detachauthor/{book}', [BookController::class, 'detachAuthor'])->name('book.detach.author');
+    Route::post('/attachauthor/{book}', [BookController::class, 'attachAuthor'])->name('book.attach.author');
 });
 
 require __DIR__.'/auth.php';

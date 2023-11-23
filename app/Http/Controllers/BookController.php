@@ -44,7 +44,7 @@ class BookController extends Controller
     {
         //$book = Book::with('authors')->where('id', $book->id)->first();
         return view('books.show', [
-            'book' => $book.filter(filtered),
+            'book' => $book,
             'authors' => $book -> authors
         ]);
     }
@@ -56,6 +56,7 @@ class BookController extends Controller
     {
         return view('books.edit', [
             'book' => $book,
+            'authors' => Author::orderBy('first_name')->get(),
         ]);
     }
 
@@ -93,9 +94,16 @@ class BookController extends Controller
         return redirect('/books');
     }
 
-    public function detachAuthor(Author $author)
+    public function detachAuthor(Request $request, Book $book): RedirectResponse
     {
-        $author->delete();
-        return redirect('/books');
+        $book->authors()->detach($request->author_id);
+        return redirect()->back();
     }
+
+    public function attachAuthor(Request $request, Book $book): RedirectResponse
+    {
+        $book->authors()->attach($request->author_id);
+        return redirect()->back();
+    }
+
 }
