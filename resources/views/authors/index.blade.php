@@ -7,6 +7,9 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            
+                <a href="{{ route('authors.create')}}"><x-primary-button>Add author</x-primary-button></a>
+            
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <ul>     
@@ -29,6 +32,7 @@
                         @endforeach
                     </ul>
                 </div>
+                {{ $authors->links() }}
             </div>
         </div>
     </div>

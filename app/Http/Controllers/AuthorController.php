@@ -15,7 +15,7 @@ class AuthorController extends Controller
     public function index()
     {
         return view('authors.index', [
-            'authors' => Author::all()
+            'authors' => Author::orderBy('first_name')->paginate(20)
         ]);
         //return Author::all();
     }
@@ -23,11 +23,9 @@ class AuthorController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Author $author)
+    public function create()
     {
-        return view('authors.create', [
-            'author' => $author,
-        ]);
+        return view('authors.add');
     }
 
     /**
@@ -35,7 +33,21 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+        ],
+        [
+            'first_name.required' => 'Nõutav väli',
+            'last_name.required' => 'Nõutav väli',
+        ]
+        
+    );
+        Author::create($validated);
+
+        return view('authors.index', [
+            'authors' => Author::all()
+        ]);
     }
 
     /**

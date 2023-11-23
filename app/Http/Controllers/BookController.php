@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Author;
 use App\Models\Book;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -54,9 +55,14 @@ class BookController extends Controller
      */
     public function edit(Book $book): View
     {
+
+        $authors = Author::whereDoesntHave('books', function (Builder $query) use ($book) {
+            $query->whereNot('book_id', $book->id);
+        })->orderBy('first_name')->get();
+
         return view('books.edit', [
             'book' => $book,
-            'authors' => Author::orderBy('first_name')->get(),
+            'authors' => $authors,
         ]);
     }
 
