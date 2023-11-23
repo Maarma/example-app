@@ -116,7 +116,7 @@
                             </select>
 
                             <div class="mt-4 space-x-2">
-                                <x-primary-button>{{ __('Save') }}</x-primary-button>
+                                <x-primary-button>{{ __('Add') }}</x-primary-button>
                             </div>
                             
                         </form>
